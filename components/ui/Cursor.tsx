@@ -17,25 +17,6 @@ export default function Cursor() {
       posRef.current = { x: e.clientX, y: e.clientY };
       dot.style.left = e.clientX + "px";
       dot.style.top = e.clientY + "px";
-
-      // Light up nearby binary digits
-      const binaryDigits = document.querySelectorAll('.static-binary');
-      binaryDigits.forEach((digit) => {
-        const rect = digit.getBoundingClientRect();
-        const digitX = rect.left + rect.width / 2;
-        const digitY = rect.top + rect.height / 2;
-        const distance = Math.sqrt(
-          Math.pow(e.clientX - digitX, 2) + Math.pow(e.clientY - digitY, 2)
-        );
-        
-        if (distance < 100) {
-          (digit as HTMLElement).style.opacity = (1 - distance / 100).toString();
-          (digit as HTMLElement).style.transform = `translateY(${(1 - distance / 100) * -10}px)`;
-        } else {
-          (digit as HTMLElement).style.opacity = '0.1';
-          (digit as HTMLElement).style.transform = 'translateY(0)';
-        }
-      });
     };
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
