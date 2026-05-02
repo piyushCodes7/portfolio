@@ -1,0 +1,243 @@
+%============================================================
+% Piyush Sharma — Modern Resume
+% XeLaTeX | FontSpec | tcolorbox tags | Two-col Hackathons
+%============================================================
+\documentclass[10pt, letterpaper]{article}
+
+%------ Packages ------
+\usepackage{fontspec}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{tcolorbox}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{fontawesome5}
+
+%------ Font ------
+\setmainfont{Liberation Sans}
+
+%------ Page Layout ------
+\geometry{
+  letterpaper,
+  top=0.32in,
+  bottom=0.28in,
+  left=0.48in,
+  right=0.48in
+}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+%------ Colors ------
+\definecolor{accentblue}{RGB}{30, 64, 120}       % deep navy
+\definecolor{accentmid}{RGB}{52, 100, 175}        % medium blue for links
+\definecolor{sectionrule}{RGB}{30, 64, 120}
+\definecolor{taggray}{RGB}{238, 240, 245}         % tag background
+\definecolor{tagtext}{RGB}{45, 55, 80}            % tag text
+\definecolor{lightgray}{RGB}{110, 115, 125}       % muted info text
+\definecolor{iconcolor}{RGB}{60, 80, 140}
+
+%------ Hyperlink Style ------
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accentmid,
+  linkcolor=accentmid,
+  pdfborder={0 0 0}
+}
+
+%------ Tech Stack Tag Command ------
+\tcbuselibrary{skins}
+\newcommand{\tag}[1]{%
+  \tcbox[
+    on line,
+    arc=2pt,
+    outer arc=2pt,
+    colback=taggray,
+    colframe=taggray,
+    boxsep=0.5pt,
+    left=2.5pt, right=2.5pt,
+    top=0.8pt, bottom=0.8pt,
+    fontupper=\fontsize{7.8pt}{9pt}\selectfont\color{tagtext},
+    nobeforeafter
+  ]{#1}%
+}
+
+%------ Section Heading Style ------
+\titleformat{\section}
+  {\fontsize{10pt}{12pt}\selectfont\bfseries\color{accentblue}\uppercase}
+  {}{0em}{}
+  [\vspace{1pt}{\color{sectionrule}\hrule height 0.6pt}\vspace{2pt}]
+\titlespacing{\section}{0pt}{5pt}{2pt}
+
+%------ Icon-like text labels ------
+\newcommand{\iconmail}{\textcolor{iconcolor}{\textbf{✉}}\,}
+\newcommand{\iconphone}{\textcolor{iconcolor}{\textbf{✆}}\,}
+\newcommand{\iconweb}{\textcolor{iconcolor}{\textbf{⌁}}\,}
+
+%------ Resume Item Commands ------
+\newcommand{\resumeItem}[1]{%
+  \item{\fontsize{9pt}{11.5pt}\selectfont #1}%
+}
+
+\newcommand{\resumeItemListStart}{%
+  \begin{itemize}[leftmargin=0.18in, label={\textcolor{accentblue}{\tiny$\blacksquare$}}, itemsep=0.5pt, topsep=1pt, parsep=0pt]%
+}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-1pt}}
+
+%=============================================================
+\begin{document}
+
+%------------------------------------------------------------
+%  HEADER
+%------------------------------------------------------------
+\begin{center}
+    {\Huge \textbf{Piyush Sharma}} \\[1ex]
+      {\fontsize{9pt}{11pt}\selectfont\color{lightgray}
+    B.E. CSE (AI \& ML) $\cdot$ Chitkara University $\cdot$ Batch of 2029
+  }\\[3pt]
+    \small
+\faPhone \ +91-9317113457 \quad|\quad
+\faEnvelope \ \href{mailto:piyushCodes7}{piyushCodes7@gmail.com} \quad|\quad
+\faLinkedin \ \href{https://linkedin.com/in/piyushCodes7}{LinkedIn} \quad|\quad
+\faGithub \ \href{https://github.com/piyushCodes7}{GitHub} \quad|\quad
+\faMapMarker* \ {Bilaspur, Himachal Pradesh}
+\end{center}
+\vspace{-1ex}
+
+%------------------------------------------------------------
+%  EDUCATION
+%------------------------------------------------------------
+\section{Education}
+
+\begin{tabularx}{\textwidth}{@{}X r@{}}
+  \textbf{\fontsize{10pt}{12pt}\selectfont Chitkara University} — B.E. Computer Science Engineering \textit{(AI \& ML Specialisation)} &
+  \textbf{Aug 2025 – May 2029}
+\end{tabularx}
+\vspace{1pt}
+
+{\fontsize{9.2pt}{11pt}\selectfont\color{lightgray}
+  CGPA:\;\textbf{\textcolor{accentblue}{9.6 / 10.0}} (Semester 1)\quad|\quad
+  Coursework: Frontend (HTML, CSS, Javascript), Python, C, C++, Digital Electronics, Intro to AI and its Fundamentals, Discrete
+}
+
+\vspace{2pt}
+
+%------------------------------------------------------------
+%  PROJECTS
+%------------------------------------------------------------
+\section{Projects}
+
+% --- ASHA-VANI ---
+\vspace{1pt}
+{\fontsize{10pt}{12pt}\selectfont\bfseries
+  \href{https://github.com/GovindJindal/ASHA-VANI}{ASHA-VANI}
+}\;\textcolor{lightgray}{—}\;{\fontsize{8.8pt}{10pt}\selectfont\textit{Offline AI Health Copilot for Rural India}}
+\hfill
+{\fontsize{8.5pt}{10pt}\selectfont\color{lightgray} Eclipse 6.0, Thapar University}\\[3pt]
+\tag{Python} \tag{Qwen2.5-3B} \tag{Oumi Fine-Tuning} \tag{FastAPI} \tag{React} \tag{Edge Deployment}
+\resumeItemListStart
+  \resumeItem{Fine-tuned a \textbf{3B-parameter Small Language Model} (Qwen2.5) via the Oumi framework for Hinglish medical triage, enabling ASHA workers to receive expert-level AI guidance with \textbf{100\% offline operation} — no internet required.}
+  \resumeItem{It gets instantly activated by the wake word "ASHA".}
+  \resumeItem{Engineered FastAPI voice pipeline + React frontend achieving \textbf{$<$500ms end-to-end latency} on edge devices, delivering real-time life-saving triage support to India's most remote rural communities.}
+\resumeItemListEnd
+
+\vspace{2pt}
+
+% --- BODHI ---
+{\fontsize{10pt}{12pt}\selectfont\bfseries
+  \href{https://github.com/GovindJindal/BODHI}{BODHI}
+}\;\textcolor{lightgray}{—}\;{\fontsize{8.8pt}{10pt}\selectfont\textit{AI-Powered Fintech \& Investment Platform}}
+\hfill
+{\fontsize{8.5pt}{10pt}\selectfont\color{lightgray} FINVASIA Hackathon, Chitkara University}\\[3pt]
+\tag{React Native} \tag{TypeScript} \tag{FastAPI} \tag{AWS} \tag{Gemini 1.5 Flash} \tag{Sarvam AI} \tag{Razorpay}
+\resumeItemListStart
+  \resumeItem{Built a full-stack fintech app featuring group expense tracking, micro-investment clubs with \textbf{democratic trade voting}, and a proactive \textbf{Gemini 1.5 Flash} AI financial assistant running in the background.}
+  \resumeItem{Engineered a polished UI/UX with a modernized navigation flow, replacing standard assets with a professional, minimalist design.}
+  \resumeItem{Integrated Sarvam AI for multilingual support and Razorpay for live trade execution; deployed on \textbf{AWS} serving real-time market simulation and portfolio management.}
+\resumeItemListEnd
+
+\vspace{2pt}
+
+% --- Sign Setu ---
+{\fontsize{10pt}{12pt}\selectfont\bfseries
+  \href{https://github.com/GovindJindal/Sign-Setu}{Sign Setu}
+}\;\textcolor{lightgray}{—}\;{\fontsize{8.8pt}{10pt}\selectfont\textit{Indian Sign Language Accessibility Platform}}
+\hfill
+{\fontsize{8.5pt}{10pt}\selectfont\color{lightgray} Hack Helix, Thapar University}\\[3pt]
+\tag{Next.js 15} \tag{React 19} \tag{Django} \tag{spaCy} \tag{NLTK} \tag{AssemblyAI} \tag{Three.js} \tag{Tailwind CSS 4}
+\resumeItemListStart
+  \resumeItem{Developed a multi-modal ISL (Indian Sign Language) conversion platform processing \textbf{text, audio, and video} into ISL gloss notation, bridging the communication gap for India's deaf/hard-of-hearing community.}
+  \resumeItem{Leveraged spaCy + NLTK for NLP pre-processing and AssemblyAI + OpenRouter LLM pipeline; integrated Google Translate to support regional Indian languages.}
+\resumeItemListEnd
+
+\vspace{2pt}
+
+% --- Logic Flow ---
+{\fontsize{10pt}{12pt}\selectfont\bfseries
+  \href{https://github.com/GovindJindal/LogicFlow} {Logic Flow}}
+\;\textcolor{lightgray}{—}\;
+{\fontsize{8.8pt}{10pt}\selectfont\textit{Virtual Digital Electronics \& Architecture Lab}}\hfill
+{\fontsize{8.5pt}{10pt}\selectfont\color{lightgray} Frontend Project, Chitkara University}\\[3pt]
+\tag{HTML} \tag{CSS} \tag{JavaScript}
+\resumeItemListStart
+  \resumeItem{Built a fully browser-based simulator for Digital Electronics \& Computer Architecture, providing university-level virtual lab access to students without physical equipment — \textbf{can be adopted at Chitkara University}.}
+\resumeItemListEnd
+
+\vspace{2pt}
+
+%------------------------------------------------------------
+%  SKILLS
+%------------------------------------------------------------
+\section{Technical Skills}
+
+{\fontsize{9.3pt}{13pt}\selectfont
+\begin{tabularx}{\textwidth}{@{} >{\bfseries\color{accentblue}}l @{\hspace{6pt}} X @{}}
+  Languages     & Python, JavaScript, TypeScript, C, C++,HTML, CSS \\
+  AI / ML       & NumPy, Pandas, Matplotlib, LLM Fine-Tuning (Oumi), Prompt Engineering, RAG \\
+  Frameworks    & React, React Native, FastAPI, Node.js, Vite, Three.js, Framer Motion \\
+  Cloud \& DB   & AWS, Vercel, Render, PostgreSQL, Git \& GitHub \\
+  Design Tools  & Figma, Blender, Canva, Android Studio, Xcode \\
+\end{tabularx}
+}
+
+\vspace{2pt}
+
+%------------------------------------------------------------
+%  ACHIEVEMENTS
+%------------------------------------------------------------
+\section{Achievements}
+
+{\fontsize{9.2pt}{11pt}\selectfont\textbf{Hackathons}\;\textcolor{lightgray}{(7 competitions — Thapar, NIT Hamirpur, Chitkara, \& International)}}
+
+\vspace{3pt}
+
+{\fontsize{9pt}{11pt}\selectfont
+\begin{tabularx}{\textwidth}{@{} >{\bfseries\color{accentblue}}l @{\hspace{6pt}} X @{}}
+  Eclipse 6.0 \normalfont\textit{— Thapar University}       & ASHA-VANI (offline AI health copilot), Aegis \\[1pt]
+  Hack Helix \normalfont\textit{— Thapar University}        & Sign Setu (ISL communication bridge) \\[1pt]
+  FINVASIA \normalfont\textit{— Chitkara University}         & BODHI (AI fintech \& investment platform) \\[1pt]
+  Hack Secure \normalfont\textit{— NIT Hamirpur}             & Liquid Defence \\[1pt]
+  SIH Internal \normalfont\textit{— Chitkara}             & Ayursutra \\[1pt]
+  Sustainability \normalfont\textit{— Canadian Uni. Dubai}             & Fractal Fire Mamba \\[1pt]
+\end{tabularx}
+}
+
+\vspace{4pt}
+
+{\fontsize{9.2pt}{11pt}\selectfont\textbf{Certifications}}\\[3pt]
+{\fontsize{9pt}{11pt}\selectfont
+\begin{tabularx}{\textwidth}{@{} >{\bfseries\color{accentblue}}l @{\hspace{6pt}} X @{}}
+  Microsoft  & Azure AI Fundamentals (AI-900) \\[1pt]
+  DeepLearning.AI & AI and Disaster Management \\[1pt]
+  Cisco      & Apply AI: Analyze Customer Reviews; Introduction to Modern AI \\[1pt]
+  BID (×5)   & Natural Disaster Risk, Qualitative \& Quantitative Analysis, Climate Change Risk Assessment \\
+\end{tabularx}
+}
+
+\end{document}
