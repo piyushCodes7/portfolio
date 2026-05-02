@@ -245,7 +245,7 @@ export default function Hero() {
           <div className="flex gap-8 mt-10 pt-8 border-t border-white/5">
             {[
               { num: "10+", label: "Projects", color: "text-accent-cyan" },
-              { num: "200+", label: "Problems Solved", color: "text-accent-purple" },
+              { num: "50+", label: "Problems Solved", color: "text-accent-purple" },
               { num: "6+", label: "Hackathons", color: "text-amber-400" },
             ].map((s) => (
               <div key={s.label}>

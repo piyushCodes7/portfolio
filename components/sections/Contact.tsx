@@ -405,7 +405,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={state === "loading"}
-                    className="group relative font-mono text-sm font-bold px-8 py-4 rounded-lg border-2 border-accent-cyan bg-accent-cyan text-[#050508] hover:bg-transparent hover:text-accent-cyan hover:shadow-[0_0_30px_rgba(0,245,196,0.4)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                    className="group relative font-mono text-sm font-bold px-8 py-4 rounded-lg border-2 border-white bg-black text-white hover:bg-white hover:!text-black hover:border-white hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 z-20"
                   >
                     <span className="flex items-center gap-3">
                       {state === "loading" ? (
@@ -423,7 +423,7 @@ export default function Contact() {
                         </>
                       ) : (
                         <>
-                          <span className="uppercase tracking-wider">Send Message</span>
+                          <span className="uppercase tracking-wider text-white font-bold group-hover:text-black">Send Message</span>
                           <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                           </svg>

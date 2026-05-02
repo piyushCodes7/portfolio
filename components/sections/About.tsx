@@ -86,7 +86,7 @@ export default function About() {
             <div className="grid grid-cols-2 gap-4">
               {[
                 { num: "10+", label: "Projects Built", icon: "🚀", color: "cyan" },
-                { num: "200+", label: "Problems Solved", icon: "🧠", color: "purple" },
+                { num: "50+", label: "Problems Solved", icon: "🧠", color: "purple" },
                 { num: "6+", label: "Hackathons", icon: "🏆", color: "amber" },
                 { num: "5+", label: "Tech Stacks", icon: "⚡", color: "cyan" },
               ].map((s, i) => (
