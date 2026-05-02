@@ -40,19 +40,15 @@ body::before {
   width: 8px; height: 8px;
   background: #00f5c4; border-radius: 50%;
   position: absolute; transform: translate(-50%, -50%);
-  transition: width 0.15s, height 0.15s, background 0.15s;
+  transition: transform 0.15s, background 0.15s;
   box-shadow: 0 0 14px #00f5c4;
 }
-#cursor-ring {
-  width: 38px; height: 38px;
-  border: 1.5px solid rgba(0,245,196,0.45);
-  border-radius: 50%; position: absolute;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s, height 0.25s, border-color 0.25s;
-}
-body.cursor-hover #cursor-dot { width: 14px; height: 14px; background: #7c3aed; box-shadow: 0 0 24px #7c3aed; }
-body.cursor-hover #cursor-ring { width: 58px; height: 58px; border-color: rgba(124,58,237,0.6); }
 body.cursor-click #cursor-dot { transform: translate(-50%,-50%) scale(0.6); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+}
 
 .bg-grid {
   background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);

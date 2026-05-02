@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Reveal, SectionLabel, SectionTitle } from "../ui/Reveal";
 import { GITHUB_USERNAME } from "@/data/portfolio";
 
@@ -159,7 +160,47 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  topics: string[];
+  updated_at: string;
+  fork: boolean;
+}
+
 export default function Projects() {
+  const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6&type=owner`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setRepos(data.filter((r: GitHubRepo) => !r.fork));
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const langColors: Record<string, string> = {
+    Python: "text-green-400",
+    JavaScript: "text-yellow-400",
+    TypeScript: "text-blue-400",
+    C: "text-gray-400",
+    "C++": "text-pink-400",
+    HTML: "text-orange-400",
+    CSS: "text-purple-400",
+    Shell: "text-lime-400",
+    Jupyter: "text-amber-400",
+  };
+
   return (
     <section id="projects" className="relative py-28 px-6 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-[#050508] via-[#080812] to-[#050508]" />
@@ -191,11 +232,88 @@ export default function Projects() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Featured Projects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
           {featuredProjects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </div>
+
+        {/* GitHub Repos */}
+        <Reveal>
+          <div className="mb-10">
+            <div className="flex items-center gap-4 mb-3">
+              <span className="font-mono text-[0.68rem] text-accent-purple tracking-[0.2em] uppercase">GitHub Repositories</span>
+              <div className="h-px flex-1 bg-gradient-to-r from-accent-purple/40 to-transparent" />
+            </div>
+            <h3 className="font-display text-2xl font-bold text-white">
+              Recent <span className="text-gradient-cyan">activity</span>
+            </h3>
+          </div>
+        </Reveal>
+
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="bg-surface border border-white/7 p-5 clip-corner-sm animate-pulse">
+                <div className="h-4 bg-white/5 rounded w-3/4 mb-3" />
+                <div className="h-3 bg-white/5 rounded w-full mb-2" />
+                <div className="h-3 bg-white/5 rounded w-2/3" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {repos.map((repo, i) => (
+              <Reveal key={repo.id} delay={i * 60}>
+                <a
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block bg-surface border border-white/7 p-5 clip-corner-sm hover:border-accent-cyan/30 hover:-translate-y-1 hover:shadow-card transition-all duration-300 h-full"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <svg className="w-5 h-5 text-accent-cyan" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <div className="flex items-center gap-3 text-faint font-mono text-[0.65rem]">
+                      {repo.stargazers_count > 0 && (
+                        <span className="flex items-center gap-1">
+                          <svg className="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                          {repo.stargazers_count}
+                        </span>
+                      )}
+                      {repo.forks_count > 0 && (
+                        <span className="flex items-center gap-1">
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" /></svg>
+                          {repo.forks_count}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <h4 className="font-display font-bold text-sm text-white group-hover:text-accent-cyan transition-colors mb-2 truncate">
+                    {repo.name}
+                  </h4>
+                  <p className="text-faint text-xs leading-relaxed line-clamp-2 mb-4">
+                    {repo.description || "No description"}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {repo.language && (
+                        <span className={`font-mono text-[0.65rem] ${langColors[repo.language] || "text-muted"}`}>
+                          {repo.language}
+                        </span>
+                      )}
+                    </div>
+                    <span className="font-mono text-[0.6rem] text-faint">
+                      {new Date(repo.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    </span>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
