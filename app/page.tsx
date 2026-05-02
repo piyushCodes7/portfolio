@@ -1,5 +1,4 @@
 "use client";
-import Cursor from "@/components/ui/Cursor";
 import Navbar from "@/components/ui/Navbar";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
@@ -12,7 +11,6 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
-      <Cursor />
       <Navbar />
       <main>
         <Hero />

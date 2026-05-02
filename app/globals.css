@@ -8,7 +8,6 @@
   --font-dm-sans: 'DM Sans', sans-serif;
 }
 
-* { cursor: none !important; }
 html { scroll-behavior: smooth; }
 body {
   background: #050508;
@@ -34,16 +33,6 @@ body::before {
 .clip-corner-md { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px)); }
 .clip-corner-lg { clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px)); }
 .clip-corner-tr { clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%); }
-
-#cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
-#cursor-dot {
-  width: 8px; height: 8px;
-  background: #00f5c4; border-radius: 50%;
-  position: absolute; transform: translate(-50%, -50%);
-  transition: transform 0.15s, background 0.15s;
-  box-shadow: 0 0 14px #00f5c4;
-}
-body.cursor-click #cursor-dot { transform: translate(-50%,-50%) scale(0.6); }
 
 @keyframes float {
   0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }

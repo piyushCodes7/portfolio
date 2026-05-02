@@ -25,24 +25,19 @@ const ContactLink = ({
   color?: "cyan" | "purple" | "green";
 }) => {
   const colorClasses = {
-    cyan: "group-hover:border-accent-cyan/40 group-hover:shadow-[0_0_20px_rgba(0,245,196,0.15)]",
-    purple: "group-hover:border-accent-purple/40 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.15)]",
-    green: "group-hover:border-green-400/40 group-hover:shadow-[0_0_20px_rgba(74,222,128,0.15)]",
+    cyan: "border-accent-cyan/30 group-hover:border-accent-cyan group-hover:shadow-[0_0_25px_rgba(0,245,196,0.25)]",
+    purple: "border-accent-purple/30 group-hover:border-accent-purple group-hover:shadow-[0_0_25px_rgba(124,58,237,0.25)]",
+    green: "border-green-400/30 group-hover:border-green-400 group-hover:shadow-[0_0_25px_rgba(74,222,128,0.25)]",
   };
 
   const iconBgClasses = {
-    cyan: "bg-accent-cyan/10 text-accent-cyan group-hover:bg-accent-cyan/20",
-    purple: "bg-accent-purple/10 text-accent-purple group-hover:bg-accent-purple/20",
-    green: "bg-green-400/10 text-green-400 group-hover:bg-green-400/20",
+    cyan: "bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30 group-hover:bg-accent-cyan/30",
+    purple: "bg-accent-purple/20 text-accent-purple border border-accent-purple/30 group-hover:bg-accent-purple/30",
+    green: "bg-green-400/20 text-green-400 border border-green-400/30 group-hover:bg-green-400/30",
   };
 
-  return (
-    <a
-      href={href}
-      target={href?.startsWith("http") ? "_blank" : undefined}
-      rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-      className={`group relative overflow-hidden bg-surface/50 backdrop-blur-sm border border-white/10 p-5 clip-corner-sm transition-all duration-300 hover:-translate-y-1 ${colorClasses[color]}`}
-    >
+  const content = (
+    <>
       {/* Animated gradient border */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
@@ -56,32 +51,51 @@ const ContactLink = ({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="font-mono text-[0.55rem] text-faint tracking-[0.25em] uppercase">
+            <span className="font-mono text-[0.65rem] text-faint/80 tracking-[0.15em] uppercase">
               {label}
             </span>
-            <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
+            <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
           </div>
-          <span className="font-mono text-sm text-white group-hover:text-accent-cyan transition-colors truncate block">
+          <span className="font-mono text-base font-bold text-white group-hover:text-accent-cyan transition-colors block tracking-wide">
             {value}
           </span>
         </div>
-        {/* Arrow on hover */}
-        <svg
-          className="w-4 h-4 text-faint opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </svg>
+        {/* Arrow on hover - only show if href exists */}
+        {href && (
+          <svg
+            className="w-4 h-4 text-faint opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        )}
       </div>
-    </a>
+    </>
   );
+
+  const cardClass = `group relative block bg-[#0d0d18] border-2 p-4 rounded-lg transition-all duration-300 hover:-translate-y-1 z-10 ${colorClasses[color]}`;
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={href.startsWith("http") ? "_blank" : undefined}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        className={cardClass}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return <div className={cardClass}>{content}</div>;
 };
 
 export default function Contact() {
@@ -194,7 +208,7 @@ export default function Contact() {
                 }
                 label="Email"
                 value={EMAIL}
-                href={`mailto:${EMAIL}`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Hello%20from%20portfolio`}
                 color="cyan"
               />
 
@@ -234,6 +248,7 @@ export default function Contact() {
                 }
                 label="Location"
                 value="Bilaspur, HP, India"
+                href="https://www.google.com/maps/dir/?api=1&destination=31.363178,76.622631&travelmode=driving"
                 color="green"
               />
 
@@ -383,23 +398,23 @@ export default function Contact() {
                 )}
 
                 {/* Submit button */}
-                <div className="flex items-center gap-3 pt-6">
+                <div className="flex items-center gap-3 pt-8">
                   <span className="font-mono text-[0.75rem] text-accent-cyan shrink-0">
                     <span className="text-accent-purple">➜</span> ~
                   </span>
                   <button
                     type="submit"
                     disabled={state === "loading"}
-                    className="group relative overflow-hidden font-mono text-sm text-[#050508] bg-accent-cyan px-6 py-3 rounded-lg font-medium hover:shadow-[0_0_20px_rgba(0,245,196,0.3)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                    className="group relative font-mono text-sm font-bold px-8 py-4 rounded-lg border-2 border-accent-cyan bg-accent-cyan text-[#050508] hover:bg-transparent hover:text-accent-cyan hover:shadow-[0_0_30px_rgba(0,245,196,0.4)] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                   >
-                    <span className="relative z-10 flex items-center gap-2">
+                    <span className="flex items-center gap-3">
                       {state === "loading" ? (
                         <>
                           <div className="flex gap-1">
                             {[0, 1, 2].map((i) => (
                               <div
                                 key={i}
-                                className="w-1.5 h-1.5 bg-[#050508] rounded-full animate-bounce"
+                                className="w-2 h-2 bg-current rounded-full animate-bounce"
                                 style={{ animationDelay: `${i * 0.15}s` }}
                               />
                             ))}
@@ -408,9 +423,9 @@ export default function Contact() {
                         </>
                       ) : (
                         <>
-                          ./send_message.sh
-                          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          <span className="uppercase tracking-wider">Send Message</span>
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                           </svg>
                         </>
                       )}
